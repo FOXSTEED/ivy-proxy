@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  database:
+    image: mongo
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: nearbyapp
+      POSTGRES_DB: nearbyitems
+  reviews:
+    image: bdduong/reviews-component:newimage
+    depends_on: 
+      - 'database'
+    ports:
+      - '3001:3001'
+  overview:
+    image: emsando/overview-component:latest
+    depends_on: 
+      - 'database'
+    ports:
+      - '3002:3002'
+  nearby:
+    image: kguinto/nearby-component:latest
+    env_file:
+      - .env
+    command: bash -c 'while !</dev/tcp/postgres/5432; do sleep 1; done; npm start'
+    depends_on: 
+      - 'postgres'
+    ports:
+      - '3003:3003'
+  q-and-a:
+    image: kylechambers/q-and-a:trythree
+    depends_on: 
+      - 'database'
+    ports:
+      - '3004:3004'
+  recommendations:
+    image: zinoki/recommendations-component:sixthtry
+    depends_on: 
+      - 'database'
+    ports:
+      - '3005:3005'
+  proxy:
+    build: ./
+    depends_on:
+      - 'recommendations'
+      - 'nearby'
+    ports:
+      - '3000:3000'
