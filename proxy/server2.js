@@ -1,13 +1,9 @@
 const express = require('express')
-// const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
-
-app.use(express.static(path.join(__dirname, 'public')));
-// app.use('/listings/:id/', express.static(path.join(__dirname, 'public')));
 
 const clientBundles = './proxy/public/services';
 const serverBundles = './proxy/templates/services';
@@ -15,9 +11,11 @@ const serviceConfig = require('./service-config.json');
 const services = require('./loader.js')(clientBundles, serverBundles, serviceConfig);
 const React = require('react');
 const ReactDom = require('react-dom/server');
+const { renderToString } = require('react-dom/server');
 const Layout = require('./templates/layout');
 const App = require('./templates/app');
 const Scripts = require('./templates/scripts');
+const { ServerStyleSheet } = require('styled-components');
 
 const renderComponents = (components, props = {}) => {
   return Object.keys(components).map(item => {
@@ -26,12 +24,16 @@ const renderComponents = (components, props = {}) => {
   });
 }
 
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/listings/:id/', function(req, res){
+app.get('/listings/:id/', function(req, res){  
+  console.log(services)
+  // const App = services['QuestionsAndAnswers']
+  // const sheet = new ServerStyleSheet(); 
+  // const body = sheet.collectStyles('<App />');
+  // const styles = sheet.getStyleTags();
   let components = renderComponents(services, {itemid: req.params.id});
-  // console.log(components)    
-  // console.log(services)                                                                                                                                                                                                                               
+  // console.log(components)                                                                                                                                                                                                                             
   res.end(Layout(
     'SDC Demo',
     App(...components),
