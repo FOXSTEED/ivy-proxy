@@ -7,7 +7,6 @@ const loadBundle = function(cache, item, filename) {
   // add a small delay to ensure pipe has closed
   setTimeout(() => {
     filename = filename.slice(0,2)+filename.slice(8)
-    console.log(filename )
     cache[item] = require(filename).default;    
   }, 0);
 };
@@ -43,7 +42,8 @@ const fetchBundles = (path, services, suffix = '', require = false) => {
 
 module.exports = (clientPath, serverPath, services) => {
   fetchBundles(clientPath, services);
-  fetchBundles(serverPath, services, '-server', true);
-
+  setTimeout(() => {
+    fetchBundles(serverPath, services, '-server', true); 
+  }, 1000);
   return services;
 };
