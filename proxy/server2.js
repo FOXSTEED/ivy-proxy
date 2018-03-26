@@ -27,13 +27,7 @@ const renderComponents = (components, props = {}) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/listings/:id/', function(req, res){  
-  console.log(services)
-  // const App = services['QuestionsAndAnswers']
-  // const sheet = new ServerStyleSheet(); 
-  // const body = sheet.collectStyles('<App />');
-  // const styles = sheet.getStyleTags();
-  let components = renderComponents(services, {itemid: req.params.id});
-  // console.log(components)                                                                                                                                                                                                                             
+  let components = renderComponents(services, {itemid: req.params.id});                                                                                                                                                                                                                
   res.end(Layout(
     'SDC Demo',
     App(...components),
