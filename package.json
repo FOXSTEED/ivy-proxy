@@ -5,15 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node proxy/server.js"
+    "start": "nodemon proxy/server2.js"
   },
   "author": "Zachary Inouye",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "fetch": "^1.1.0",
+    "file-system": "^2.2.2",
     "morgan": "^1.9.0",
-    "path": "^0.12.7"
+    "newrelic": "^3.2.0",
+    "node-fetch": "^2.1.1",
+    "nodemon": "^1.17.2",
+    "path": "^0.12.7",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.2.3"
   }
 }
