@@ -15,7 +15,6 @@ const { renderToString } = require('react-dom/server');
 const Layout = require('./templates/layout');
 const App = require('./templates/app');
 const Scripts = require('./templates/scripts');
-const { ServerStyleSheet } = require('styled-components');
 
 const renderComponents = (components, props = {}) => {
   return Object.keys(components).map(item => {
@@ -27,7 +26,8 @@ const renderComponents = (components, props = {}) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/listings/:id/', function(req, res){  
-  let components = renderComponents(services, {itemid: req.params.id});                                                                                                                                                                                                                
+  let components = renderComponents(services, {itemid: req.params.id});  
+  console.log(services)                                                                                                                                                                                                              
   res.end(Layout(
     'SDC Demo',
     App(...components),

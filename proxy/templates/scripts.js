@@ -5,7 +5,6 @@ module.exports = (items) => `
     return `<script src="/services/${item}.js"></script>`;
   }).join('\n')}
   <script>
-  console.log(window.QuestionsAndAnswers)
     ${items.map(item => {
       return `ReactDOM.hydrate(
         React.createElement(${item}),
