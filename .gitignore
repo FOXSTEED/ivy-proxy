@@ -24,3 +24,7 @@ coverage
 build/
 dist/
 bundle.js
+
+
+proxy/templates/services/QuestionsAndAnswers-server.js
+proxy/public/services/QuestionsAndAnswers.js
